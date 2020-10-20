@@ -29,7 +29,7 @@ public class RetailADjdbc
 private ProductoDP productodp;
 private RopaDP ropadp;
 private LibroDP librodp;
-private VinosLicores vinoslicdp;
+private VinosLicoresDP vinoslicdp;
 private VideojuegosDP videodp;
 private LineaBlancaDP lbdp;
 private MuebleDP muebledp;

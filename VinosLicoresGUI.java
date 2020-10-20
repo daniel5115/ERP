@@ -19,6 +19,7 @@ public class VinosLicoresGUI extends JFrame implements ActionListener
     private JTextField tfPresentacion,tfGradoDeAlcohol,tfMarca,tfTipo,tfPaisOrigen;
     private JButton    bAceptar;
     private JPanel     panel1,panel2;
+        private String idP,idD;
     RetailADjdbc retailad= new RetailADjdbc();
 
     public VinosLicoresGUI()
@@ -54,7 +55,7 @@ public class VinosLicoresGUI extends JFrame implements ActionListener
         panel2.add(panel1);
         add(panel2);
         setSize(500,600);
-        setVisible(true);
+        setVisible(false);
 
 
     }
@@ -71,8 +72,9 @@ public class VinosLicoresGUI extends JFrame implements ActionListener
         datos=presentacion+"_"+gradoAlcohol+"_"+marca+"_"+tipo+"_"+paisOrigen;
         return datos;
     }
-    public JPanel getPanel2(){
-
+    public JPanel getPanel2(String a,String b){
+           idP=a;
+           idD=b;
         return this.panel2;
 
         }

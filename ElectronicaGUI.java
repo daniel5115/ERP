@@ -1,4 +1,4 @@
-//PANEL PARA CAPTURAR ELECTRONICA 
+//PANEL PARA CAPTURAR ELECTRONICA
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -14,12 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
-//PANEL PARA CAPTURAR ELECTRONICA 
+//PANEL PARA CAPTURAR ELECTRONICA
 public class ElectronicaGUI  extends JFrame implements ActionListener
 {
     private JTextField tfMarca, tfTipo;
     private JButton    bAceptar;
     private JPanel     panel1, panel2;
+        private String idP,idD;
+    private RetailADjdbc retailad;
 
     public ElectronicaGUI()
     {
@@ -42,7 +44,7 @@ public class ElectronicaGUI  extends JFrame implements ActionListener
         panel2.add(panel1);
 
         setSize(500,600);
-        setVisible(true);
+        setVisible(false);
     }
 
     public String obtenerDatos()
@@ -53,12 +55,13 @@ public class ElectronicaGUI  extends JFrame implements ActionListener
         datos=marca+"_"+tipo;
         return datos;
     }
-    public JPanel getPanel2(){
-
+    public JPanel getPanel2(String a,String b){
+         idP=a;
+         idD=b;
         return this.panel2;
-        
+
         }
-        
+
     public void actionPerformed(ActionEvent e)
     {
         String datos, respuesta;

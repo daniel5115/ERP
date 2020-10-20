@@ -18,7 +18,7 @@ public class VideojuegosGUI extends JFrame implements ActionListener
     private JTextField tfclasificacion, tftitulo, tfconsola;
     private JButton bAceptar;
     private JPanel     panel1, panel2;
-
+    private String idP,idD;
 private RetailADjdbc retailjdbc= new RetailADjdbc();
 
     //private BancoAD bancoad= new BancoAD();
@@ -69,7 +69,7 @@ private RetailADjdbc retailjdbc= new RetailADjdbc();
         // 4. Adicionar el panel2 al JFrame y hacerlo visible
         add(panel2);
         setSize(300,300);
-        setVisible(true);
+        setVisible(false);
 
 
     }
@@ -96,8 +96,10 @@ private RetailADjdbc retailjdbc= new RetailADjdbc();
     }
 
 
-    public JPanel getPanel2()
+    public JPanel getPanel2(String a,String b)
     {
+     idP=a;
+     idD=b;
       return this.panel2;
     }
 

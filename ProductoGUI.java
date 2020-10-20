@@ -197,8 +197,9 @@ return this.panel2;
 
 
       idProd=tfidProducto.getText();
+      idP=idProd;
       idDepto= fin;
-      id=idDepto;
+      //id=idDepto;
       nomb=tfNombre.getText();
       pC=tfPrecioCompra.getText();
       pV=tfPrecioVenta.getText();
@@ -250,7 +251,7 @@ return this.panel2;
           // 2. Checar los datos
           if(datos.equals("VACIO"))
             respuesta = "Algun campo esta vacio...";
-          else
+          else{
 
 
             respuesta = retailad.capturar("Producto",datos);
@@ -260,13 +261,40 @@ return this.panel2;
 
           //  panel = producto.getPanel2();
             //panel.setVisible(true);
-
-            panel2.add(ropa.getPanel2());
+               if(fin=="Ropa"){
+            panel2.add(ropa.getPanel2(idP,fin));
             panel2.setVisible(true);
-          // 3. Desplegar resultado de la transaccion
-          //taDatos.setText(respuesta);
+          }
+            if(fin=="Libros"){
+              panel2.add(libro.getPanel2(idP,fin));
+              panel2.setVisible(true);
+            }
 
+            if(fin=="Vinos y Licores"){
+              panel2.add(vinlic.getPanel2(idP,fin));
+              panel2.setVisible(true);
+
+            }
+            if (fin=="Videojuegos"){
+              panel2.add(video.getPanel2(idP,fin));
+              panel2.setVisible(true);
+            }
+            if(fin=="Line Blanca"){
+              panel2.add(lb.getPanel2(idP,fin));
+              panel2.setVisible(true);
+
+            }
+            if(fin=="Muebles"){
+              panel2.add(muebles.getPanel2(idP,fin));
+              panel2.setVisible(true);
+
+            }
+            if(fin=="Electronica"){
+              panel2.add(elec.getPanel2(idP,fin));
+              panel2.setVisible(true);
+            }
         }
+      }
 
         if(e.getSource() == bBorrarProducto)
         {

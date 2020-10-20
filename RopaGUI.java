@@ -19,7 +19,7 @@ public class RopaGUI extends JFrame implements ActionListener
 private JTextField tfmaterial,tftalla,tfcolor,tftemporada,tfmodelo,tfgenero;
 private JButton bAceptar;
 private JPanel panel1,panel2;
-private Sting idP,idD;
+private String idP,idD;
 
 private RetailADjdbc retailad;
 
@@ -68,7 +68,7 @@ panel2.add(panel1);
 
   add(panel2);
   setSize(500,600);
-  setVisible(true);
+  setVisible(false);
 
 
 }
@@ -92,12 +92,12 @@ public String obtenerDatos()
     mod=tfmodelo.getText();
     gen=tfgenero.getText();
 
-if(mat.isEmpty()||talla.isEmpty||col.isEmpty()||tem.isEmpty()||mod.isEmpty()||gen.isEmpty()){
+if(mat.isEmpty()||talla.isEmpty()||col.isEmpty()||tem.isEmpty()||mod.isEmpty()||gen.isEmpty()){
 datos="VACIO";
 
 }
 else{
-  datos=idP+"_"+idD+"_"+mat+"_"+talla+"_"+col+"_"+tem+"_"+mod+"_"+ge;
+  datos=idP+"_"+idD+"_"+mat+"_"+talla+"_"+col+"_"+tem+"_"+mod+"_"+gen;
 }
 
     return datos;
@@ -105,6 +105,7 @@ else{
 public void actionPerformed(ActionEvent e)
 {
 if(e.getSource()==bAceptar){
+  /*
   String datos;
 
   datos=obtenerDatos();
@@ -113,7 +114,7 @@ respuesta = "Algun campo esta vacio...";
 else
 retailad.capturar("Ropa",datos);
 JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
-
+*/
   }
 }
 

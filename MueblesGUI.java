@@ -1,4 +1,4 @@
-//PANEL PARA CAPTURAR MUEBLE 
+//PANEL PARA CAPTURAR MUEBLE
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -14,12 +14,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
-//PANEL PARA CAPTURAR MUEBLE 
+//PANEL PARA CAPTURAR MUEBLE
 public class MueblesGUI  extends JFrame implements ActionListener
 {
     private JTextField tfLinea, tfColor, tfMarca, tfAcabados;
     private JButton    bAceptar;
     private JPanel     panel1, panel2;
+        private String idP,idD;
 
     public MueblesGUI()
     {
@@ -44,10 +45,10 @@ public class MueblesGUI  extends JFrame implements ActionListener
         panel1.add(tfAcabados);
 
         panel1.add(bAceptar);
-        
+
         panel2.add(panel1);
         setSize(500,600);
-        setVisible(true);
+        setVisible(false);
     }
 
     public String obtenerDatos()
@@ -60,12 +61,13 @@ public class MueblesGUI  extends JFrame implements ActionListener
         datos=linea+"_"+color+"_"+marca+"_"+acabados;
         return datos;
     }
-    public JPanel getPanel2(){
-
+    public JPanel getPanel2(String a,String b){
+        idP=a;
+        idD=b;
         return this.panel2;
-        
+
         }
-        
+
     public void actionPerformed(ActionEvent e)
     {
         String datos, respuesta;

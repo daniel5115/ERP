@@ -19,7 +19,10 @@ public class LibroGUI extends JFrame implements ActionListener
     private JTextField tfEditorial, tfAutor, tfGenero;
     private JButton    bAceptar;
     private JPanel     panel1,panel2;
-    RetailADjdbc retailad= new RetailADjdbc();
+
+    private String idP,idD;
+private RetailADjdbc retailad= new RetailADjdbc();
+
 
     public LibroGUI()
     {
@@ -37,7 +40,7 @@ public class LibroGUI extends JFrame implements ActionListener
         bAceptar.addActionListener(this);
         panel1.setLayout(new GridLayout(0,2));
         panel2.setLayout(new FlowLayout());
-      
+
         panel1.add(new JLabel("Editorial"));
         panel1.add(tfEditorial);
         panel1.add(new JLabel("Autor"));
@@ -48,7 +51,7 @@ public class LibroGUI extends JFrame implements ActionListener
         panel2.add(panel1);
         add(panel2);
         setSize(500,600);
-        setVisible(true);
+        setVisible(false);
 
 
     }
@@ -62,8 +65,9 @@ public class LibroGUI extends JFrame implements ActionListener
         datos=editorial+"_"+autor+"_"+genero;
         return datos;
     }
-    public JPanel getPanel2(){
-
+    public JPanel getPanel2(String a,String b){
+        idP=a;
+        idD=b;
         return this.panel2;
 
         }
