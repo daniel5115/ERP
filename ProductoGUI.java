@@ -20,7 +20,7 @@ public class ProductoGUI extends JFrame implements ActionListener
     private JComboBox   CBestado, CBestadoPromocion, CBdepartamento;
     private JButton    bCapturarProducto, bBorrarProducto, bSalir,bBuscar;
     private JPanel     panel1, panel2;
-    String fin,cg,es,eP,idP;
+    private String fin,cg,es,eP,idP;
 
 //    private JTextArea  taDatos;
 //GUIS
@@ -147,7 +147,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         // 4. Adicionar el panel2 al JFrame y hacerlo visible
         add(panel2);
         setSize(550,670);
-        setVisible(true);
+        setVisible(false);
 
 
     }
@@ -164,25 +164,25 @@ return this.panel2;
       switch(a){
 
       case "Ropa":
-         fin= "01";
+         fin= "1";
         break;
       case "Libros":
-        fin= "02";
+        fin= "2";
         break;
       case "Vinos y Licores":
-        fin= "03";
+        fin= "3";
         break;
       case "Videojuegos":
-        fin= "04";
+        fin= "4";
         break;
       case "Linea Blanca":
-        fin= "05";
+        fin= "5";
         break;
       case "Muebles":
-        fin= "06";
+        fin= "6";
         break;
       case "Electronica":
-      fin= "07";
+      fin= "7";
       break;
      default:
     fin="nada";
@@ -222,7 +222,7 @@ return this.panel2;
 
       return datos;
     }
-    public void actionPerformed(ActionEvent e)
+public void actionPerformed(ActionEvent e)
     {
         String datos, respuesta;
 
@@ -240,7 +240,7 @@ return this.panel2;
         }
       }
 
-        if(e.getSource() == bCapturarProducto)
+   if(e.getSource() == bCapturarProducto)
         {
           cg=(String) CBdepartamento.getSelectedItem();
           obtenerCategoria(cg);
@@ -261,42 +261,44 @@ return this.panel2;
 
           //  panel = producto.getPanel2();
             //panel.setVisible(true);
-               if(fin=="Ropa"){
+          if(fin=="1"){
+               System.out.println(idP+"este es producto");
+               System. out. println(fin+"Este depto");
             panel2.add(ropa.getPanel2(idP,fin));
             panel2.setVisible(true);
-          }
-            if(fin=="Libros"){
+              }
+            if(fin=="2"){
               panel2.add(libro.getPanel2(idP,fin));
               panel2.setVisible(true);
             }
 
-            if(fin=="Vinos y Licores"){
+            if(fin=="3"){
               panel2.add(vinlic.getPanel2(idP,fin));
               panel2.setVisible(true);
 
             }
-            if (fin=="Videojuegos"){
+            if (fin=="4"){
               panel2.add(video.getPanel2(idP,fin));
               panel2.setVisible(true);
             }
-            if(fin=="Line Blanca"){
+            if(fin=="5"){
               panel2.add(lb.getPanel2(idP,fin));
               panel2.setVisible(true);
 
             }
-            if(fin=="Muebles"){
+            if(fin=="6"){
               panel2.add(muebles.getPanel2(idP,fin));
               panel2.setVisible(true);
 
             }
-            if(fin=="Electronica"){
+            if(fin=="7"){
               panel2.add(elec.getPanel2(idP,fin));
               panel2.setVisible(true);
             }
         }
       }
 
-        if(e.getSource() == bBorrarProducto)
+   if(e.getSource() == bBorrarProducto)
         {
           //taDatos.setText("borrar producto");
         }

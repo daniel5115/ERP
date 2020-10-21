@@ -21,6 +21,9 @@ public class ConsultaProductoGUI extends JFrame implements ActionListener
     private JButton    bSalir,bBuscarProductoNombre,bBuscarProductoID,bBuscarPrecio,bBuscarTemporada, bBuscarCD,bBuscarDept,bBuscarEstado,bBuscarEstadoPromocion;
     private JPanel     panel1, panel2;
     private JTextArea  taDatos;
+    private String fin;
+
+private RetailADjdbc retailad=new RetailADjdbc();
 
     public ConsultaProductoGUI()
     {
@@ -67,7 +70,7 @@ public class ConsultaProductoGUI extends JFrame implements ActionListener
         bSalir = new JButton("Exit");
         panel1 = new JPanel();
         panel2 = new JPanel();
-        taDatos = new JTextArea(10,30);
+        taDatos = new JTextArea(10,35);
         CBestado.setSelectedIndex(-1);
         CBestadoPromocion.setSelectedIndex(-1);
         CBdepartamento.setSelectedIndex(-1);
@@ -109,8 +112,8 @@ public class ConsultaProductoGUI extends JFrame implements ActionListener
         panel1.add(CBestado);
         panel1.add(new JLabel("Estado de promocion"));
         panel1.add(CBestadoPromocion);
-        panel1.add(new JLabel("Centro de distribucion"));
-        panel1.add(CBCentroDistribucion);
+        //panel1.add(new JLabel("Centro de distribucion"));
+        //panel1.add(CBCentroDistribucion);
         panel1.add(bBuscarProductoID);
         panel1.add(bBuscarProductoNombre);
         panel1.add(bBuscarPrecio);
@@ -133,7 +136,38 @@ public class ConsultaProductoGUI extends JFrame implements ActionListener
 return this.panel2;
 
 }
+private void obtenerCategoria(String a){
 
+
+
+
+  switch(a){
+
+  case "Ropa":
+     fin= "1";
+    break;
+  case "Libros":
+    fin= "2";
+    break;
+  case "Vinos y Licores":
+    fin= "3";
+    break;
+  case "Videojuegos":
+    fin= "4";
+    break;
+  case "Linea Blanca":
+    fin= "5";
+    break;
+  case "Muebles":
+    fin= "6";
+    break;
+  case "Electronica":
+  fin= "7";
+  break;
+ default:
+fin="nada";
+  }
+}
 
     public void actionPerformed(ActionEvent e)
     {
@@ -155,21 +189,53 @@ return this.panel2;
 
         if(e.getSource() == bBuscarProductoID)
         {
-          taDatos.setText("producto buscado por ID");
+            // 2. Checar los datos
+            datos=tfidProducto.getText();
+            if(datos.equals(""))
+              respuesta = "INGRESA ID";
+            else{
+
+
+              respuesta = retailad.buscarID(datos);
+              taDatos.setText(respuesta);
+
+            }
+            JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
         }
         if(e.getSource() == bBuscarProductoNombre)
         {
-          taDatos.setText("producto buscado por nombre");
+          datos=tfNombre.getText();
+          if(datos.equals(""))
+            respuesta = "INGRESA ID";
+          else{
+
+
+            respuesta = retailad.buscarNombre(datos);
+            taDatos.setText(respuesta);
+
+          }
+          JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
         }
 
         if(e.getSource() == bBuscarTemporada)
         {
-          taDatos.setText("producto buscado por temporada");
+          //taDatos.setText("producto buscado por temporada");
+
         }
 
         if(e.getSource() == bBuscarPrecio)
         {
-          taDatos.setText("producto buscado por precio");
+  //taDatos.setText("producto buscado por precio");
+  datos=tfPrecioVenta.getText();
+   if(datos.equals(""))
+    respuesta = "INGRESA ID";
+   else{
+
+    respuesta = retailad.buscarPrecio(datos);
+    taDatos.setText(respuesta);
+
+     }
+  JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
         }
 
         if(e.getSource() == bBuscarCD)
@@ -179,7 +245,20 @@ return this.panel2;
 
         if(e.getSource() == bBuscarDept)
         {
-          taDatos.setText("productor buscado por departamento");
+            datos=(String) CBdepartamento.getSelectedItem();
+            obtenerCategoria(datos);
+            if(datos.equals(""))
+              respuesta = "INGRESA ID";
+            else{
+
+
+              respuesta = retailad.buscarDepto(fin);
+              taDatos.setText(respuesta);
+
+            }
+            JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
+
+
         }
         if(e.getSource() == bBuscarEstado)
         {

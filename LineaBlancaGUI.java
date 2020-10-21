@@ -92,7 +92,7 @@ private RetailADjdbc retailjdbc= new RetailADjdbc();
             }
             else
             {
-              datos=marca+"_"+tipEner+"_"+consumoenerg+"_"+capacidad;
+              datos=idD+"_"+idP+"_"+marca+"_"+tipEner+"_"+consumoenerg+"_"+capacidad;
             }
 
 

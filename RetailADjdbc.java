@@ -34,6 +34,7 @@ private VideojuegosDP videodp;
 private LineaBlancaDP lbdp;
 private MuebleDP muebledp;
 private ElectronicaDP elecdp;
+private InventarioDP inventariodp;
 	// Constructor
 	public RetailADjdbc()
 	{
@@ -109,6 +110,10 @@ private ElectronicaDP elecdp;
     elecdp = new ElectronicaDP(datos);
     insert = "INSERT INTO "+tabla+" VALUES("+elecdp.toStringSql()+");";
   }
+	if(tabla.equals("Inventario")){
+		inventariodp=new InventarioDP();
+    insert = "INSERT INTO "+tabla+" VALUES("+elecdp.toStringSql()+");";
+	}
   try
   {
     //se crea statement
@@ -131,5 +136,231 @@ private ElectronicaDP elecdp;
   }
 
   return resultado;
+}
+
+
+public String buscarID(String dat){
+	String datos="";
+  String query;
+  boolean encontrado=false;
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE idProducto='"+dat+"'";
+
+  try
+  {
+    // 1.Abrir la BD
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    // 2. Procesar los datos de la Tabla Resultante
+  productodp = new ProductoDP();
+
+    if(tr.next())
+    {
+			      productodp.setidProducto(tr.getInt(1));
+						productodp.setidDepto(tr.getInt(2));
+						productodp.setNombre(tr.getString("nombre"));
+						productodp.setprecioCompra(tr.getString("precioCompra"));
+						productodp.setprecioVenta(tr.getString("precioVenta"));
+						productodp.setDistribuidor(tr.getString("distribuidor"));
+						productodp.setDescripcion(tr.getString("descripcion"));
+						productodp.setEstado(tr.getString("estado"));
+						productodp.setedoPromocion(tr.getString("edoPromocion"));
+						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+      datos = datos + productodp.toString() + "\n";
+
+      encontrado = true;
+    }
+
+    // 3. SE cierra BD
+    statement.close();
+
+    if(!encontrado)
+      datos = "NOT_FOUND";
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+
+}
+public String buscarNombre(String dat){
+	String datos="";
+  String query;
+  boolean encontrado=false;
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE nombre='"+dat+"'";
+
+  try
+  {
+    // 1.Abrir la BD
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    // 2. Procesar los datos de la Tabla Resultante
+  productodp = new ProductoDP();
+
+    if(tr.next())
+    {
+			      productodp.setidProducto(tr.getInt(1));
+						productodp.setidDepto(tr.getInt(2));
+						productodp.setNombre(tr.getString("nombre"));
+						productodp.setprecioCompra(tr.getString("precioCompra"));
+						productodp.setprecioVenta(tr.getString("precioVenta"));
+						productodp.setDistribuidor(tr.getString("distribuidor"));
+						productodp.setDescripcion(tr.getString("descripcion"));
+						productodp.setEstado(tr.getString("estado"));
+						productodp.setedoPromocion(tr.getString("edoPromocion"));
+						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+      datos = datos + productodp.toString() + "\n";
+
+      encontrado = true;
+    }
+
+    // 3. SE cierra BD
+    statement.close();
+
+    if(!encontrado)
+      datos = "NOT_FOUND";
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+
+}
+public String buscarPrecio(String dat){
+	String datos="";
+  String query;
+  boolean encontrado=false;
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE precioVenta='"+dat+"'";
+
+  try
+  {
+    // 1.Abrir la BD
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    // 2. Procesar los datos de la Tabla Resultante
+  productodp = new ProductoDP();
+
+    if(tr.next())
+    {
+			      productodp.setidProducto(tr.getInt(1));
+						productodp.setidDepto(tr.getInt(2));
+						productodp.setNombre(tr.getString("nombre"));
+						productodp.setprecioCompra(tr.getString("precioCompra"));
+						productodp.setprecioVenta(tr.getString("precioVenta"));
+						productodp.setDistribuidor(tr.getString("distribuidor"));
+						productodp.setDescripcion(tr.getString("descripcion"));
+						productodp.setEstado(tr.getString("estado"));
+						productodp.setedoPromocion(tr.getString("edoPromocion"));
+						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+      datos = datos + productodp.toString() + "\n";
+
+      encontrado = true;
+    }
+
+    // 3. SE cierra BD
+    statement.close();
+
+    if(!encontrado)
+      datos = "NOT_FOUND";
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+
+}
+public String buscarDepto(String dat){
+	String datos="";
+  String query;
+  boolean encontrado=false;
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE idDepto='"+dat+"'";
+
+  try
+  {
+    // 1.Abrir la BD
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    // 2. Procesar los datos de la Tabla Resultante
+  productodp = new ProductoDP();
+
+    if(tr.next())
+    {
+			      productodp.setidProducto(tr.getInt(1));
+						productodp.setidDepto(tr.getInt(2));
+						productodp.setNombre(tr.getString("nombre"));
+						productodp.setprecioCompra(tr.getString("precioCompra"));
+						productodp.setprecioVenta(tr.getString("precioVenta"));
+						productodp.setDistribuidor(tr.getString("distribuidor"));
+						productodp.setDescripcion(tr.getString("descripcion"));
+						productodp.setEstado(tr.getString("estado"));
+						productodp.setedoPromocion(tr.getString("edoPromocion"));
+						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+      datos = datos + productodp.toString() + "\n";
+
+      encontrado = true;
+    }
+
+    // 3. SE cierra BD
+    statement.close();
+
+    if(!encontrado)
+      datos = "NOT_FOUND";
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+
 }
 }

@@ -62,7 +62,7 @@ private RetailADjdbc retailad= new RetailADjdbc();
         String editorial=tfEditorial.getText();
         String autor=tfAutor.getText();
         String genero=tfGenero.getText();
-        datos=editorial+"_"+autor+"_"+genero;
+        datos=idD+"_"+idP+"_"+editorial+"_"+autor+"_"+genero;
         return datos;
     }
     public JPanel getPanel2(String a,String b){

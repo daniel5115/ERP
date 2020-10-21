@@ -52,7 +52,7 @@ public class ElectronicaGUI  extends JFrame implements ActionListener
         String datos="";
         String marca=tfMarca.getText();
         String tipo=tfTipo.getText();
-        datos=marca+"_"+tipo;
+        datos=idD+"_"+idP+"_"+tipo+"_"+marca;
         return datos;
     }
     public JPanel getPanel2(String a,String b){

@@ -21,6 +21,8 @@ private JMenuItem miSalir;
 private RetailADjdbc retailad=new RetailADjdbc();
 private ProductoGUI producto=new ProductoGUI();
 private ConsultaProductoGUI consulta=new ConsultaProductoGUI();
+private AgregarInventario agregarinven=new AgregarInventario();
+private ConsultarCentroGUI conscent=new ConsultarCentroGUI();
 	private JPanel panel;
 
 public RetailGUI(){
@@ -45,6 +47,8 @@ miSalir=          new  JMenuItem("Exit");
 //añade evento a los JMenuItem
 miProducto.addActionListener(this);
 miConProd.addActionListener(this);
+miCentro.addActionListener(this);
+miConCentro.addActionListener(this);
 miSalir.addActionListener(this);
 
 
@@ -69,7 +73,7 @@ miSalir.addActionListener(this);
 		//menuBarCatalogos.add(menuReportes);
 
 		setJMenuBar(menuBarCatalogos);
-		setSize(500,550);
+		setSize(550,600);
 		setVisible(true);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -103,17 +107,27 @@ if(e.getSource()==miConProd){
   add(panel);
   setVisible(true);
 
-/*
-  taDatosReportes.setText("REPORTE: AUTOS DE UN CLIENTE\n\n");
 
-  String cved = JOptionPane.showInputDialog("Clave del Cliente:");
-
-  String datos = seguroad.reporteClienteAuto(cved);
-
-taDatosReportes.append(datos);
-*/
 }
 
+
+if(e.getSource()==miCentro){
+	panel.setVisible(false);
+	panel = agregarinven.getPanel2();
+	panel.setVisible(true);
+
+	add(panel);
+	setVisible(true);
+}
+
+if(e.getSource()==miConCentro){
+	panel.setVisible(false);
+	panel = conscent.getPanel2();
+	panel.setVisible(true);
+
+	add(panel);
+	setVisible(true);
+}
 }
 
 

@@ -69,7 +69,7 @@ public class VinosLicoresGUI extends JFrame implements ActionListener
         String tipo=tfTipo.getText();
         String paisOrigen=tfPaisOrigen.getText();
 
-        datos=presentacion+"_"+gradoAlcohol+"_"+marca+"_"+tipo+"_"+paisOrigen;
+        datos=idD+"_"+idP+"_"+presentacion+"_"+gradoAlcohol+"_"+marca+"_"+tipo+"_"+paisOrigen;
         return datos;
     }
     public JPanel getPanel2(String a,String b){

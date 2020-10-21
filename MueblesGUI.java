@@ -58,7 +58,7 @@ public class MueblesGUI  extends JFrame implements ActionListener
         String color=tfColor.getText();
         String marca=tfMarca.getText();
         String acabados=tfAcabados.getText();
-        datos=linea+"_"+color+"_"+marca+"_"+acabados;
+        datos=idD+"_"+idP+"_"+linea+"_"+color+"_"+marca+"_"+acabados;
         return datos;
     }
     public JPanel getPanel2(String a,String b){

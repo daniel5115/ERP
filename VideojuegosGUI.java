@@ -88,7 +88,7 @@ private RetailADjdbc retailjdbc= new RetailADjdbc();
         }
         else
         {
-          datos = clasif+"_"+tit+"_"+consol;
+          datos =idD+"_"+idP+"_"+clasif+"_"+tit+"_"+consol;
         }
 
 

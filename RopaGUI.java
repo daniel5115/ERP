@@ -21,7 +21,7 @@ private JButton bAceptar;
 private JPanel panel1,panel2;
 private String idP,idD;
 
-private RetailADjdbc retailad;
+private RetailADjdbc retailad=new RetailADjdbc();
 
 public RopaGUI(){
   super("Ropa GUI");
@@ -73,9 +73,10 @@ panel2.add(panel1);
 
 }
 
-public JPanel getPanel2(String i,String b){
-idP=i;
-idD=b;
+public JPanel getPanel2(String a, String b){
+  idP=a;
+  idD=b;
+
 return this.panel2;
 
 }
@@ -97,25 +98,29 @@ datos="VACIO";
 
 }
 else{
-  datos=idP+"_"+idD+"_"+mat+"_"+talla+"_"+col+"_"+tem+"_"+mod+"_"+gen;
+  datos=idD+"_"+idP+"_"+mat+"_"+talla+"_"+col+"_"+tem+"_"+mod+"_"+gen;
 }
 
     return datos;
 }
 public void actionPerformed(ActionEvent e)
 {
-if(e.getSource()==bAceptar){
-  /*
-  String datos;
+  String datos1, respuesta;
 
-  datos=obtenerDatos();
-  if(datos.equals("VACIO"))
-respuesta = "Algun campo esta vacio...";
-else
-retailad.capturar("Ropa",datos);
-JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
-*/
-  }
+  if(e.getSource() == bAceptar)
+  {
+
+    datos1 = obtenerDatos();
+
+    // 2. Checar los datos
+    if(datos1.equals("VACIO"))
+      respuesta = "Algun campo esta vacio...";
+    else
+
+
+respuesta=retailad.capturar("Ropa",datos1);
+      JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
+    }
 }
 
 public static void main(String args[])
