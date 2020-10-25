@@ -1,13 +1,13 @@
 import java.util.StringTokenizer;
 
-public class InventarioDP
+public class CentroDistribucionDP
 {
 	// Atributos
 	private int idCD;
   private String nombre,coordenadas;
 
 	// Constructor
-	public InventarioDP()
+	public CentroDistribucionDP()
 	{
 		this.idCD     = 0;
     this.nombre        ="";
@@ -16,11 +16,11 @@ public class InventarioDP
 
 	}
 
-	public InventarioDP(String datos)
+	public CentroDistribucionDP(String datos)
 	{
 		StringTokenizer st = new StringTokenizer(datos,"_");
 
-		this.idCD       = st.Integer.parseInt(nextToken());
+		this.idCD       = Integer.parseInt(st.nextToken());
     this.nombre       =st.nextToken();
 		this.coordenadas       = st.nextToken();
 		//this.telefono    = st.nextToken();

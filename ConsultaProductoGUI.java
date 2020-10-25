@@ -18,7 +18,7 @@ public class ConsultaProductoGUI extends JFrame implements ActionListener
 {
     private JTextField tfidProducto, tfNombre, tfPrecioVenta, tfTemporada;
     private JComboBox  CBestado, CBestadoPromocion, CBdepartamento,CBCentroDistribucion;
-    private JButton    bSalir,bBuscarProductoNombre,bBuscarProductoID,bBuscarPrecio,bBuscarTemporada, bBuscarCD,bBuscarDept,bBuscarEstado,bBuscarEstadoPromocion;
+    private JButton    bSalir,bBuscarProductoNombre,bBuscarProductoID,bBuscarPrecio,bBuscarTemporada, bBuscarTodo,bBuscarDept,bBuscarEstado,bBuscarEstadoPromocion;
     private JPanel     panel1, panel2;
     private JTextArea  taDatos;
     private String fin;
@@ -37,7 +37,7 @@ private RetailADjdbc retailad=new RetailADjdbc();
         bBuscarProductoNombre= new JButton("Buscar producto por nombre");
         bBuscarPrecio= new JButton("Buscar por precio");
         bBuscarTemporada= new JButton("Buscar por temporada");
-        bBuscarCD= new JButton("Buscar por centro de distribucion");
+        bBuscarTodo= new JButton("Ver todos los productos");
         bBuscarEstado= new JButton("Buscar por estado de disponibilidad");
         bBuscarEstadoPromocion= new JButton("Buscar por estado de promocion");
         bBuscarDept= new JButton("Buscar por departamento");
@@ -81,7 +81,7 @@ private RetailADjdbc retailad=new RetailADjdbc();
         bBuscarProductoNombre.addActionListener(this);
         bBuscarPrecio.addActionListener(this);
         bBuscarTemporada.addActionListener(this);
-        bBuscarCD.addActionListener(this);
+        bBuscarTodo.addActionListener(this);
         bBuscarDept.addActionListener(this);
         bBuscarEstado.addActionListener(this);
         bBuscarEstadoPromocion.addActionListener(this);
@@ -118,7 +118,7 @@ private RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(bBuscarProductoNombre);
         panel1.add(bBuscarPrecio);
         panel1.add(bBuscarTemporada);
-        panel1.add(bBuscarCD);
+        panel1.add(bBuscarTodo);
         panel1.add(bBuscarDept);
         panel1.add(bBuscarEstado);
         panel1.add(bBuscarEstadoPromocion);
@@ -168,6 +168,7 @@ private void obtenerCategoria(String a){
 fin="nada";
   }
 }
+
 
     public void actionPerformed(ActionEvent e)
     {
@@ -223,50 +224,56 @@ fin="nada";
 
         }
 
-        if(e.getSource() == bBuscarPrecio)
+if(e.getSource() == bBuscarPrecio)
         {
   //taDatos.setText("producto buscado por precio");
-  datos=tfPrecioVenta.getText();
-   if(datos.equals(""))
-    respuesta = "INGRESA ID";
-   else{
+   datos=tfPrecioVenta.getText();
+    if(datos.equals(""))
+     respuesta = "INGRESA ID";
+    else{
 
-    respuesta = retailad.buscarPrecio(datos);
-    taDatos.setText(respuesta);
+     respuesta = retailad.buscarPrecio(datos);
+      taDatos.setText(respuesta);
 
      }
-  JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
+     JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
         }
 
-        if(e.getSource() == bBuscarCD)
+    if(e.getSource() == bBuscarTodo)
         {
-          taDatos.setText("buscar por centro de distribucion");
+          datos = retailad.consultarProductos();
+
+          // 2. Desplegar los datos de los automoviles
+          taDatos.setText(datos);
         }
-
-        if(e.getSource() == bBuscarDept)
+    if(e.getSource() == bBuscarDept)
         {
-            datos=(String) CBdepartamento.getSelectedItem();
-            obtenerCategoria(datos);
-            if(datos.equals(""))
-              respuesta = "INGRESA ID";
-            else{
+            fin=(String) CBdepartamento.getSelectedItem();
+            obtenerCategoria(fin);
 
+            datos = retailad.consultarDepto(fin);
 
-              respuesta = retailad.buscarDepto(fin);
-              taDatos.setText(respuesta);
-
-            }
-            JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
-
+            // 2. Desplegar los datos de los automoviles
+            taDatos.setText(datos);
 
         }
-        if(e.getSource() == bBuscarEstado)
+  if(e.getSource() == bBuscarEstado)
         {
-          taDatos.setText("productor buscado por estado");
+          fin=(String) CBestado.getSelectedItem();
+
+          datos = retailad.consultarEdo(fin);
+
+          // 2. Desplegar los datos de los automoviles
+          taDatos.setText(datos);
         }
-        if(e.getSource() == bBuscarEstadoPromocion)
+  if(e.getSource() == bBuscarEstadoPromocion)
         {
-          taDatos.setText("productor buscado por estado de promocion");
+          fin=(String) CBestadoPromocion.getSelectedItem();
+
+          datos = retailad.consultarEdoPromo(fin);
+
+          // 2. Desplegar los datos de los automoviles
+          taDatos.setText(datos);
         }
 
         if(e.getSource() == bSalir)

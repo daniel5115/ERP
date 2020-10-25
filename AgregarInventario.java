@@ -23,7 +23,7 @@ public class AgregarInventario extends JFrame implements ActionListener{
 
 private JTextField tfidProducto,tfCantidad;
 private JComboBox CBCentroDistribucion;
-private JButton bIngresar;
+private JButton bIngresar,bBuscar;
 
 
 private JPanel panel1,panel2;
@@ -36,6 +36,7 @@ tfCantidad=new JTextField();
 
 
 bIngresar=new JButton("Ingresar cantidad");
+bBuscar=new JButton("Buscar producto");
 
 panel1=new JPanel();
 panel2=new JPanel();
@@ -48,7 +49,8 @@ CBCentroDistribucion.addItem("Yucatan");
 
 bIngresar.addActionListener(this);
 CBCentroDistribucion.addActionListener(this);
-
+bBuscar.addActionListener(this);
+bIngresar.setEnabled(false);
 panel1.setLayout(new GridLayout(0,2));
 panel2.setLayout(new FlowLayout());
 
@@ -58,6 +60,7 @@ panel1.add(new JLabel("ID Producto"));
 panel1.add(tfidProducto);
 panel1.add(new JLabel("Cantidad"));
 panel1.add(tfCantidad);
+panel1.add(bBuscar);
 panel1.add(bIngresar);
 panel2.add(panel1);
 
@@ -71,62 +74,67 @@ public JPanel getPanel2(){
     return this.panel2;
 
     }
-private String obtenerCategoria(String a){
-String fin;
+public String obtenerCentro(String a){
+  String fin;
       switch(a){
 
-      case "Ropa":
+      case "Monterrey":
          fin= "1";
         break;
-      case "Libros":
-        fin= "2";
-        break;
-      case "Vinos y Licores":
+      case "Queretaro":
+       fin= "2";
+       break;
+       case "Yucatan":
         fin= "3";
         break;
-      case "Videojuegos":
-        fin= "4";
-        break;
-      case "Linea Blanca":
-        fin= "5";
-        break;
-      case "Muebles":
-        fin= "6";
-        break;
-      case "Electronica":
-      fin= "7";
-      break;
-     default:
-    fin="";
+        default:
+        fin="Global";
       }
 return fin;
     }
+
 public String obtenerDatos(String d){
+
 String datos;
 String cd,prod,cant;
 cd=d;
 prod=tfidProducto.getText();
 cant=tfCantidad.getText();
-if(cd.equals("")||prod.equals("")||cant.equals(""))
+if(cd.equals("")||prod.equals(""))//RECUERDA TIENES QUE CORREGIR QUE CANTIDAD ESTE VACION
 datos="VACIO";
 else{
   datos=cd+"_"+prod+"_"+cant;
 }
 return datos;
 }
-public void actionPerformed(ActionEvent e){
-  String datos,respuesta,depto;
 
+public void actionPerformed(ActionEvent e){
+  String datos,respuesta,id,depto;
+
+if(e.getSource()==bBuscar){
+  depto= (String) CBCentroDistribucion.getSelectedItem();
+  depto= obtenerCentro(depto);
+  datos=obtenerDatos(depto);
+  if(datos.equals("VACIO")){
+    respuesta="ALGUN CAMPO ESTA VACIO";
+   }
+   else{
+   respuesta=retailad.consultarCentro(depto,"Modificar");
+   tfCantidad.setText(respuesta);
+   bIngresar.setEnabled(true);
+    }
+  }
 if(e.getSource()==bIngresar){
-   depto= (String) CBCentroDistribucion.getSelectedItem();
-   depto=obtenerCategoria(depto);
+  // depto=obtenerCategoria(depto);
+  depto= (String) CBCentroDistribucion.getSelectedItem();
+  depto= obtenerCentro(depto);
   datos=obtenerDatos(depto);
 
-    if(datos.equals("VACIO")){
+    if(datos.equals("VACIO") ||tfCantidad.getText().equals("")){
 respuesta="ALGUN CAMPO ESTA VACIO";
    }
    else{
-  respuesta=retailad.capturar("Inventario",datos);
+//  respuesta=retailad.capturar("Inventario",datos);
   }
 
   }

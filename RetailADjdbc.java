@@ -35,14 +35,15 @@ private LineaBlancaDP lbdp;
 private MuebleDP muebledp;
 private ElectronicaDP elecdp;
 private InventarioDP inventariodp;
+private CentroDistribucionDP centrodistdp;
 	// Constructor
 	public RetailADjdbc()
 	{
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); // Indicar el tipo de driver JDBC a utilizar
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
-
+			//conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
+conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
 			System.out.println("Conexion exitosa a la BD...");
 		}
 		catch(ClassNotFoundException cnfe)
@@ -110,10 +111,7 @@ private InventarioDP inventariodp;
     elecdp = new ElectronicaDP(datos);
     insert = "INSERT INTO "+tabla+" VALUES("+elecdp.toStringSql()+");";
   }
-	if(tabla.equals("Inventario")){
-		inventariodp=new InventarioDP();
-    insert = "INSERT INTO "+tabla+" VALUES("+elecdp.toStringSql()+");";
-	}
+
   try
   {
     //se crea statement
@@ -137,8 +135,96 @@ private InventarioDP inventariodp;
 
   return resultado;
 }
+////////////////
+public String actualizar(String tabla,String datos){
+	String resultado="";
+	String update="";
 
 
+	if(tabla.equals("Inventario")){
+	inventariodp = new InventarioDP(datos);
+		update = "UPDATE Servicio SET "+inventariodp.toStringSqlUpdate()+" WHERE idCD='"+inventariodp.getidCD()+"' AND idProducto='"+inventariodp.getidProducto()+"'";
+	}
+
+
+
+
+	try{
+		// 1. Abrir la BD
+		statement = conexion.createStatement();
+
+		// 2. Actualizar datos con Update
+		statement.executeUpdate(update);
+
+		// 3. Cerrar la BD
+		statement.close();
+
+		resultado = "Actualizacion correcta...";
+
+		System.out.println(update);
+	}
+	catch(SQLException ioe){
+		resultado = "Error: "+ioe;
+		System.out.println("Error: "+ioe);
+	}
+
+	return resultado;
+}
+////////////////7
+public String consultarProductos(){
+  String datos="";
+  String query;
+
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto";
+
+  try
+  {
+
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    productodp = new ProductoDP();
+
+    while(tr.next())
+    {
+
+
+			productodp.setidProducto(tr.getInt(1));
+			productodp.setidProducto(tr.getInt(2));
+      productodp.setNombre(tr.getString("nombre"));
+			productodp.setprecioCompra(tr.getString("precioCompra"));
+			productodp.setprecioVenta(tr.getString("precioVenta"));
+			productodp.setDistribuidor(tr.getString("distribuidor"));
+			productodp.setDescripcion(tr.getString("descripcion"));
+			productodp.setEstado(tr.getString("estado"));
+			productodp.setedoPromocion(tr.getString("edoPromocion"));
+			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+
+
+      datos = datos + productodp.toString() + "\n";
+    }
+
+
+    statement.close();
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+}
+/////////////////////////////
 public String buscarID(String dat){
 	String datos="";
   String query;
@@ -307,50 +393,50 @@ public String buscarPrecio(String dat){
   return datos;
 
 }
-public String buscarDepto(String dat){
-	String datos="";
+
+
+public String consultarDepto(String a){
+  String datos="";
   String query;
-  boolean encontrado=false;
+
   ResultSet tr;
 
-  query = "SELECT * FROM Producto WHERE idDepto='"+dat+"'";
+  query = "SELECT * FROM Producto WHERE idDepto= ' "+a+"'";
 
   try
   {
-    // 1.Abrir la BD
+
     statement = conexion.createStatement();
 
     // Ejecutar query
     tr = statement.executeQuery(query);
 
-    // 2. Procesar los datos de la Tabla Resultante
-  productodp = new ProductoDP();
+    productodp = new ProductoDP();
 
-    if(tr.next())
+    while(tr.next())
     {
-			      productodp.setidProducto(tr.getInt(1));
-						productodp.setidDepto(tr.getInt(2));
-						productodp.setNombre(tr.getString("nombre"));
-						productodp.setprecioCompra(tr.getString("precioCompra"));
-						productodp.setprecioVenta(tr.getString("precioVenta"));
-						productodp.setDistribuidor(tr.getString("distribuidor"));
-						productodp.setDescripcion(tr.getString("descripcion"));
-						productodp.setEstado(tr.getString("estado"));
-						productodp.setedoPromocion(tr.getString("edoPromocion"));
-						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+			productodp.setidProducto(tr.getInt(1));
+			productodp.setidProducto(tr.getInt(2));
+      productodp.setNombre(tr.getString("nombre"));
+			productodp.setprecioCompra(tr.getString("precioCompra"));
+			productodp.setprecioVenta(tr.getString("precioVenta"));
+			productodp.setDistribuidor(tr.getString("distribuidor"));
+			productodp.setDescripcion(tr.getString("descripcion"));
+			productodp.setEstado(tr.getString("estado"));
+			productodp.setedoPromocion(tr.getString("edoPromocion"));
+			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
 
 
 
       datos = datos + productodp.toString() + "\n";
-
-      encontrado = true;
     }
 
-    // 3. SE cierra BD
-    statement.close();
 
-    if(!encontrado)
-      datos = "NOT_FOUND";
+    statement.close();
 
     System.out.println(query);
   }
@@ -361,6 +447,167 @@ public String buscarDepto(String dat){
   }
 
   return datos;
+}
 
+/////////////
+public String consultarEdo(String a){
+  String datos="";
+  String query;
+
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE estado= '"+a+"'";
+
+  try
+  {
+
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    productodp = new ProductoDP();
+
+    while(tr.next())
+    {
+
+
+			productodp.setidProducto(tr.getInt(1));
+			productodp.setidProducto(tr.getInt(2));
+      productodp.setNombre(tr.getString("nombre"));
+			productodp.setprecioCompra(tr.getString("precioCompra"));
+			productodp.setprecioVenta(tr.getString("precioVenta"));
+			productodp.setDistribuidor(tr.getString("distribuidor"));
+			productodp.setDescripcion(tr.getString("descripcion"));
+			productodp.setEstado(tr.getString("estado"));
+			productodp.setedoPromocion(tr.getString("edoPromocion"));
+			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+
+
+      datos = datos + productodp.toString() + "\n";
+    }
+
+
+    statement.close();
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+}
+///////
+public String consultarEdoPromo(String a){
+  String datos="";
+  String query;
+
+  ResultSet tr;
+
+  query = "SELECT * FROM Producto WHERE edoPromocion= '"+a+"'";
+
+  try
+  {
+
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+    productodp = new ProductoDP();
+
+    while(tr.next())
+    {
+
+
+			productodp.setidProducto(tr.getInt(1));
+			productodp.setidProducto(tr.getInt(2));
+      productodp.setNombre(tr.getString("nombre"));
+			productodp.setprecioCompra(tr.getString("precioCompra"));
+			productodp.setprecioVenta(tr.getString("precioVenta"));
+			productodp.setDistribuidor(tr.getString("distribuidor"));
+			productodp.setDescripcion(tr.getString("descripcion"));
+			productodp.setEstado(tr.getString("estado"));
+			productodp.setedoPromocion(tr.getString("edoPromocion"));
+			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+
+
+
+
+
+      datos = datos + productodp.toString() + "\n";
+    }
+
+
+    statement.close();
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+}
+////
+public String consultarCentro(String a,String tipo){
+  String datos="";
+  String query;
+
+  ResultSet tr;
+if(a=="Global"){
+	  query = "SELECT * FROM Inventario";
+}else
+  query = "SELECT * FROM Inventario WHERE idCD= '"+a+"'";
+
+  try
+  {
+
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+     inventariodp = new InventarioDP();
+
+    while(tr.next())
+    {
+
+
+			inventariodp.setidCD(tr.getInt(1));
+      inventariodp.setidProducto(tr.getInt(2));
+      inventariodp.setCantidad(tr.getInt(3));
+
+
+
+
+if(tipo=="Buscar"){
+      datos = datos + inventariodp.toString() + "\n";
+    }
+		else{
+			datos=inventariodp.toStringCantidad();
+		}
+	}
+
+
+    statement.close();
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
 }
 }

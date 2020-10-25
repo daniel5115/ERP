@@ -70,7 +70,9 @@ public class InventarioDP
 	{
 		return this.idCD+"_"+this.idProducto+"_"+this.cantidad;
 	}
-
+public String toStringCantidad(){
+			return ""+this.cantidad+"";
+}
 	public String toStringSql()
 	{
 	return "'"+this.idCD+"','"+this.idProducto+"','"+this.cantidad+"'";

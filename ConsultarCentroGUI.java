@@ -24,7 +24,7 @@ private JButton bConsultarCentro;
 private JTextArea taDatos;
 private JPanel panel1,panel2;
 private JComboBox CBCentroDistribucion ;
-
+private String fin;
 private RetailADjdbc retailad=new RetailADjdbc();
 
 public ConsultarCentroGUI(){
@@ -69,7 +69,34 @@ setVisible(false);
 public JPanel getPanel2(){
   return this.panel2;
 }
+public void obtenerCentro(String a){
+  switch(a){
+
+  case "Monterrey":
+     fin= "1";
+    break;
+  case "Queretaro":
+   fin= "2";
+   break;
+   case "Yucatan":
+    fin= "3";
+    break;
+    default:
+    fin="Global";
+  }
+
+}
  public void actionPerformed(ActionEvent e){
+   String datos,respuesta;
+   if(e.getSource()==bConsultarCentro){
+     fin=(String) CBCentroDistribucion.getSelectedItem();
+     obtenerCentro(fin);
+
+     datos = retailad.consultarCentro(fin,"Buscar");
+
+     // 2. Desplegar los datos de los automoviles
+     taDatos.setText(datos);
+   }
 
  }
 
