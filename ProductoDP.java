@@ -4,7 +4,7 @@ public class ProductoDP
 {
 	// Atributos
 	private int idDepto,idProducto;
-  private String nombre,precioCompra,precioVenta,distribuidor,descripcion,estado,edoPromocion,precioPromocion;
+  private String nombre,precioCompra,precioVenta,distribuidor,descripcion,estado,edoPromocion,precioPromocion,url;
 	// Constructor
 	public ProductoDP()
 	{
@@ -18,6 +18,7 @@ public class ProductoDP
     this.estado="";
     this.edoPromocion="";
     this.precioPromocion="";
+		this.url="";
 	//	this.telefono   = "";
 
 	}
@@ -36,6 +37,7 @@ public class ProductoDP
     this.estado       = st.nextToken();
     this.edoPromocion       = st.nextToken();
     this.precioPromocion       = st.nextToken();
+		this.url=st.nextToken();
     //this.       = st.nextToken();
 
     //this.telefono    = st.nextToken();
@@ -85,6 +87,9 @@ public class ProductoDP
   {
     return this.precioPromocion;
   }
+	public String getUrl(){
+		return this.url;
+	}
 
 	// Mutators o seters
 	public void setidProducto(int ip)
@@ -121,23 +126,26 @@ public void setedoPromocion(String edop){
 public void setprecioPromocion(String prep ){
    this.precioPromocion=prep;
 }
+public void setUrl(Strin u){
+	this.url=url;
+}
 
 
 
 	// Metodos
 	public String toString()
 	{
-    return this.idProducto+"_"+this.idDepto+"_"+this.nombre+"_"+this.precioCompra+"_"+this.precioVenta+"_"+this.distribuidor+"_"+this.descripcion+"_"+this.estado+"_"+this.edoPromocion+"_"+this.precioPromocion;
+    return this.idProducto+"_"+this.idDepto+"_"+this.nombre+"_"+this.precioCompra+"_"+this.precioVenta+"_"+this.distribuidor+"_"+this.descripcion+"_"+this.estado+"_"+this.edoPromocion+"_"+this.precioPromocion+"_"+this.url;
 	}
 
 	public String toStringSql()
 	{
-	return "'"+this.idProducto+"','"+this.idDepto+"','"+this.nombre+"','"+this.precioCompra+"','"+this.precioVenta+"','"+this.distribuidor+"','"+this.descripcion+"','"+this.estado+"','"+this.edoPromocion+"','"+this.precioPromocion+"'";
+	return "'"+this.idProducto+"','"+this.idDepto+"','"+this.nombre+"','"+this.precioCompra+"','"+this.precioVenta+"','"+this.distribuidor+"','"+this.descripcion+"','"+this.estado+"','"+this.edoPromocion+"','"+this.precioPromocion+"','"+this.url+"'";
 	}
 
 	public String toStringSqlUpdate()
 	{
-    return "idProducto='"+this.idProducto+"',idDepto='"+this.idDepto+"',nombre='"+this.nombre+"',precioCompra='"+this.precioCompra+"',precioVenta='"+this.precioVenta+"',distribuidor='"+this.distribuidor+"',descripcion='"+this.descripcion+"',estado='"+this.estado+"',edoPromocion='"+this.edoPromocion+"',precioPromocion='"+this.precioPromocion+"'";
+    return "idProducto='"+this.idProducto+"',idDepto='"+this.idDepto+"',nombre='"+this.nombre+"',precioCompra='"+this.precioCompra+"',precioVenta='"+this.precioVenta+"',distribuidor='"+this.distribuidor+"',descripcion='"+this.descripcion+"',estado='"+this.estado+"',edoPromocion='"+this.edoPromocion+"',precioPromocion='"+this.precioPromocion+"',url='"+"'";
 
 	}
 }

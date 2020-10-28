@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+//import com.google.cloud.sql.core.CoreSocketFactory;
 
 public class RetailADjdbc
 {
@@ -43,7 +44,9 @@ private CentroDistribucionDP centrodistdp;
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); // Indicar el tipo de driver JDBC a utilizar
 			//conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
-conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
+//conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
+conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
+
 			System.out.println("Conexion exitosa a la BD...");
 		}
 		catch(ClassNotFoundException cnfe)
@@ -203,6 +206,7 @@ public String consultarProductos(){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+			productodp.setUrl(tr.getUrl("url"));
 
 
 
@@ -256,6 +260,7 @@ public String buscarID(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+						productodp.setUrl(tr.getUrl("url"));
 
 
 
@@ -312,6 +317,7 @@ public String buscarNombre(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
+						productodp.setUrl(tr.getUrl("url"));
 
 
 
@@ -368,7 +374,7 @@ public String buscarPrecio(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
-
+						productodp.setUrl(tr.getUrl("url"));
 
 
       datos = datos + productodp.toString() + "\n";
@@ -427,6 +433,7 @@ public String consultarDepto(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+			productodp.setUrl(tr.getUrl("url"));
 
 
 
@@ -482,6 +489,7 @@ public String consultarEdo(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+			productodp.setUrl(tr.getUrl("url"));
 
 
 
@@ -536,6 +544,7 @@ public String consultarEdoPromo(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
+			productodp.setUrl(tr.getUrl("url"));
 
 
 

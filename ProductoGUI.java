@@ -16,7 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 public class ProductoGUI extends JFrame implements ActionListener
 {
-    private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion;
+    private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfurl;
     private JComboBox   CBestado, CBestadoPromocion, CBdepartamento;
     private JButton    bCapturarProducto, bBorrarProducto, bSalir,bBuscar;
     private JPanel     panel1, panel2;
@@ -51,6 +51,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 				tfDistribuidor=new JTextField();
 				tfDescripcion=new JTextField();
 				tfPrecioPromocion=new JTextField("0");
+        tfurl=new JTextField();
 
         bCapturarProducto = new JButton("Capturar producto");
         bBorrarProducto= new JButton("Borrar producto");
@@ -129,7 +130,8 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(CBestadoPromocion);
 				panel1.add(new JLabel("Precio Promocion"));
 				panel1.add(tfPrecioPromocion);
-
+        panel1.add(new JLabel("URL"));
+        panel1.add(tfurl);
 
 
         panel1.add(bCapturarProducto);
@@ -193,7 +195,7 @@ return this.panel2;
     private String obtenerDatos()
     {
       String datos;
-      String idProd, idDepto, nomb,pC,pV,dist,desc,edo,edoProm,pP;
+      String idProd, idDepto, nomb,pC,pV,dist,desc,edo,edoProm,pP,ul;
 
 
       idProd=tfidProducto.getText();
@@ -208,16 +210,17 @@ return this.panel2;
       edo=es;
       edoProm=eP;
       pP=tfPrecioPromocion.getText();
+      ul=tfurl.getText();
 
 
 
-      if(idProd.equals("") || idDepto.isEmpty() || nomb.isEmpty() ||pC.isEmpty() || pV.isEmpty() || dist.isEmpty() || desc.isEmpty() || edo.isEmpty() || edoProm.isEmpty()||pP.isEmpty())
+      if(idProd.equals("") || idDepto.isEmpty() || nomb.isEmpty() ||pC.isEmpty() || pV.isEmpty() || dist.isEmpty() || desc.isEmpty() || edo.isEmpty() || edoProm.isEmpty()||pP.isEmpty()||ul.isEmpty())
       {
         datos = "VACIO";
       }
       else
       {
-        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP;
+        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP+"_"+url;
       }
 
       return datos;
