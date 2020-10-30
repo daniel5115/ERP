@@ -220,7 +220,7 @@ return this.panel2;
       }
       else
       {
-        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP+"_"+url;
+        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP+"_"+ul;
       }
 
       return datos;

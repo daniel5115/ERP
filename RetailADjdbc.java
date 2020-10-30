@@ -43,9 +43,9 @@ private CentroDistribucionDP centrodistdp;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); // Indicar el tipo de driver JDBC a utilizar
-			//conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
+		conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
 //conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
-conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
+//conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
 
 			System.out.println("Conexion exitosa a la BD...");
 		}
@@ -146,7 +146,7 @@ public String actualizar(String tabla,String datos){
 
 	if(tabla.equals("Inventario")){
 	inventariodp = new InventarioDP(datos);
-		update = "UPDATE Servicio SET "+inventariodp.toStringSqlUpdate()+" WHERE idCD='"+inventariodp.getidCD()+"' AND idProducto='"+inventariodp.getidProducto()+"'";
+		update = "UPDATE Inventario SET "+inventariodp.toStringSqlUpdate()+" WHERE idCD='"+inventariodp.getidCD()+"' AND idProducto='"+inventariodp.getidProducto()+"'";
 	}
 
 
@@ -197,7 +197,7 @@ public String consultarProductos(){
 
 
 			productodp.setidProducto(tr.getInt(1));
-			productodp.setidProducto(tr.getInt(2));
+			productodp.setidDepto(tr.getInt(2));
       productodp.setNombre(tr.getString("nombre"));
 			productodp.setprecioCompra(tr.getString("precioCompra"));
 			productodp.setprecioVenta(tr.getString("precioVenta"));
@@ -206,7 +206,7 @@ public String consultarProductos(){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
-			productodp.setUrl(tr.getUrl("url"));
+			productodp.setUrl(tr.getString("url"));
 
 
 
@@ -260,7 +260,7 @@ public String buscarID(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
-						productodp.setUrl(tr.getUrl("url"));
+						productodp.setUrl(tr.getString("url"));
 
 
 
@@ -317,7 +317,7 @@ public String buscarNombre(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
-						productodp.setUrl(tr.getUrl("url"));
+						productodp.setUrl(tr.getString("url"));
 
 
 
@@ -374,7 +374,7 @@ public String buscarPrecio(String dat){
 						productodp.setEstado(tr.getString("estado"));
 						productodp.setedoPromocion(tr.getString("edoPromocion"));
 						productodp.setprecioPromocion(tr.getString("precioPromocion"));
-						productodp.setUrl(tr.getUrl("url"));
+						productodp.setUrl(tr.getString("url"));
 
 
       datos = datos + productodp.toString() + "\n";
@@ -424,7 +424,7 @@ public String consultarDepto(String a){
 
 
 			productodp.setidProducto(tr.getInt(1));
-			productodp.setidProducto(tr.getInt(2));
+			productodp.setidDepto(tr.getInt(2));
       productodp.setNombre(tr.getString("nombre"));
 			productodp.setprecioCompra(tr.getString("precioCompra"));
 			productodp.setprecioVenta(tr.getString("precioVenta"));
@@ -433,11 +433,12 @@ public String consultarDepto(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
-			productodp.setUrl(tr.getUrl("url"));
+			productodp.setUrl(tr.getString("url"));
 
 
 
-
+ String daniel=productodp.getedoPromocion();
+ System.out.println("EL URL ESTA AQUI="+daniel);
 
       datos = datos + productodp.toString() + "\n";
     }
@@ -480,7 +481,7 @@ public String consultarEdo(String a){
 
 
 			productodp.setidProducto(tr.getInt(1));
-			productodp.setidProducto(tr.getInt(2));
+			productodp.setidDepto(tr.getInt(2));
       productodp.setNombre(tr.getString("nombre"));
 			productodp.setprecioCompra(tr.getString("precioCompra"));
 			productodp.setprecioVenta(tr.getString("precioVenta"));
@@ -489,7 +490,7 @@ public String consultarEdo(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
-			productodp.setUrl(tr.getUrl("url"));
+			productodp.setUrl(tr.getString("url"));
 
 
 
@@ -535,7 +536,7 @@ public String consultarEdoPromo(String a){
 
 
 			productodp.setidProducto(tr.getInt(1));
-			productodp.setidProducto(tr.getInt(2));
+			productodp.setidDepto(tr.getInt(2));
       productodp.setNombre(tr.getString("nombre"));
 			productodp.setprecioCompra(tr.getString("precioCompra"));
 			productodp.setprecioVenta(tr.getString("precioVenta"));
@@ -544,7 +545,7 @@ public String consultarEdoPromo(String a){
 			productodp.setEstado(tr.getString("estado"));
 			productodp.setedoPromocion(tr.getString("edoPromocion"));
 			productodp.setprecioPromocion(tr.getString("precioPromocion"));
-			productodp.setUrl(tr.getUrl("url"));
+			productodp.setUrl(tr.getString("url"));
 
 
 

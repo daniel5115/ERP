@@ -126,8 +126,8 @@ public void setedoPromocion(String edop){
 public void setprecioPromocion(String prep ){
    this.precioPromocion=prep;
 }
-public void setUrl(Strin u){
-	this.url=url;
+public void setUrl(String u){
+	this.url=u;
 }
 
 
@@ -145,7 +145,7 @@ public void setUrl(Strin u){
 
 	public String toStringSqlUpdate()
 	{
-    return "idProducto='"+this.idProducto+"',idDepto='"+this.idDepto+"',nombre='"+this.nombre+"',precioCompra='"+this.precioCompra+"',precioVenta='"+this.precioVenta+"',distribuidor='"+this.distribuidor+"',descripcion='"+this.descripcion+"',estado='"+this.estado+"',edoPromocion='"+this.edoPromocion+"',precioPromocion='"+this.precioPromocion+"',url='"+"'";
+    return "idProducto='"+this.idProducto+"',idDepto='"+this.idDepto+"',nombre='"+this.nombre+"',precioCompra='"+this.precioCompra+"',precioVenta='"+this.precioVenta+"',distribuidor='"+this.distribuidor+"',descripcion='"+this.descripcion+"',estado='"+this.estado+"',edoPromocion='"+this.edoPromocion+"',precioPromocion='"+this.precioPromocion+"',url='"+this.url+"'";
 
 	}
 }

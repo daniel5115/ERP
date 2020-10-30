@@ -33,10 +33,12 @@ private RetailADjdbc retailad=new RetailADjdbc();
   super("Agregar Inventario");
 tfidProducto=new JTextField();
 tfCantidad=new JTextField();
+//tfnuevaCanti=new JTextField();
 
 
 bIngresar=new JButton("Ingresar cantidad");
 bBuscar=new JButton("Buscar producto");
+
 
 panel1=new JPanel();
 panel2=new JPanel();
@@ -51,6 +53,7 @@ bIngresar.addActionListener(this);
 CBCentroDistribucion.addActionListener(this);
 bBuscar.addActionListener(this);
 bIngresar.setEnabled(false);
+//tfnuevaCanti.setEnabled(false);
 panel1.setLayout(new GridLayout(0,2));
 panel2.setLayout(new FlowLayout());
 
@@ -60,6 +63,7 @@ panel1.add(new JLabel("ID Producto"));
 panel1.add(tfidProducto);
 panel1.add(new JLabel("Cantidad"));
 panel1.add(tfCantidad);
+//panel1.add(new JLabel("Cantidad nueva que"))
 panel1.add(bBuscar);
 panel1.add(bIngresar);
 panel2.add(panel1);
@@ -134,7 +138,7 @@ if(e.getSource()==bIngresar){
 respuesta="ALGUN CAMPO ESTA VACIO";
    }
    else{
-//  respuesta=retailad.capturar("Inventario",datos);
+  respuesta=retailad.actualizar("Inventario",datos);
   }
 
   }
