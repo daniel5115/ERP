@@ -43,9 +43,9 @@ private CentroDistribucionDP centrodistdp;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); // Indicar el tipo de driver JDBC a utilizar
-		conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
+		//conexion = DriverManager.getConnection("jdbc:mysql://localhost/TIENDA?user=root"); // Conectar a la BD
 //conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
-//conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
+conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
 
 			System.out.println("Conexion exitosa a la BD...");
 		}
@@ -286,6 +286,7 @@ public String buscarID(String dat){
   return datos;
 
 }
+///////////
 public String buscarNombre(String dat){
 	String datos="";
   String query;
@@ -343,10 +344,11 @@ public String buscarNombre(String dat){
   return datos;
 
 }
+///////
 public String buscarPrecio(String dat){
 	String datos="";
   String query;
-  //boolean encontrado=false;
+  boolean encontrado=false;
   ResultSet tr;
 
   query = "SELECT * FROM Producto WHERE precioVenta='"+dat+"'";
@@ -378,15 +380,16 @@ public String buscarPrecio(String dat){
 			productodp.setUrl(tr.getString("url"));
 
 
+    datos = datos + productodp.toString() + "\n";
 
+    encontrado = true;
 
-
-      datos = datos + productodp.toString() + "\n";
     }
 
 
     statement.close();
-
+		if(!encontrado)
+      datos = "NOT_FOUND";
     System.out.println(query);
   }
   catch(SQLException sqle)
@@ -398,7 +401,7 @@ public String buscarPrecio(String dat){
   return datos;
 
 }
-
+///////
 
 public String consultarDepto(String a){
   String datos="";

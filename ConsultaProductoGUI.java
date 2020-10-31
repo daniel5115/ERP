@@ -16,9 +16,9 @@ import javax.swing.*;
 
 public class ConsultaProductoGUI extends JFrame implements ActionListener
 {
-    private JTextField tfidProducto, tfNombre, tfPrecioVenta, tfTemporada;
+    private JTextField tfidProducto, tfNombre, tfPrecioVenta;
     private JComboBox  CBestado, CBestadoPromocion, CBdepartamento,CBCentroDistribucion;
-    private JButton    bSalir,bBuscarProductoNombre,bBuscarProductoID,bBuscarPrecio,bBuscarTemporada, bBuscarTodo,bBuscarDept,bBuscarEstado,bBuscarEstadoPromocion;
+    private JButton    bSalir,bBuscarProductoNombre,bBuscarProductoID,bBuscarPrecio, bBuscarTodo,bBuscarDept,bBuscarEstado,bBuscarEstadoPromocion;
     private JPanel     panel1, panel2;
     private JTextArea  taDatos;
     private String fin;
@@ -32,18 +32,16 @@ private RetailADjdbc retailad=new RetailADjdbc();
         tfidProducto=new JTextField();
         tfNombre=new JTextField();
         tfPrecioVenta=new JTextField();
-        tfTemporada=new JTextField();
         bBuscarProductoID= new JButton("Buscar producto por Id");
         bBuscarProductoNombre= new JButton("Buscar producto por nombre");
         bBuscarPrecio= new JButton("Buscar por precio");
-        bBuscarTemporada= new JButton("Buscar por temporada");
+
         bBuscarTodo= new JButton("Ver todos los productos");
         bBuscarEstado= new JButton("Buscar por estado de disponibilidad");
         bBuscarEstadoPromocion= new JButton("Buscar por estado de promocion");
         bBuscarDept= new JButton("Buscar por departamento");
 
-        bBuscarTemporada.setEnabled(false);
-        tfTemporada.setEnabled(false);
+
         CBdepartamento= new JComboBox();
         CBdepartamento.addItem("");
         CBdepartamento.addItem("Ropa");
@@ -55,9 +53,10 @@ private RetailADjdbc retailad=new RetailADjdbc();
         CBdepartamento.addItem("Electronica");
         CBestado= new JComboBox();
         CBestado.addItem("");
-        CBestado.addItem("Disponible");
-        CBestado.addItem("Agotado");
+        CBestado.addItem("Activo");
+        CBestado.addItem("Inactivo");
         CBestado.addItem("Descontinuado");
+        CBestado.addItem("Agotado");
         CBestadoPromocion= new JComboBox();
         CBestadoPromocion.addItem("");
         CBestadoPromocion.addItem("Con promocion");
@@ -80,7 +79,6 @@ private RetailADjdbc retailad=new RetailADjdbc();
         bBuscarProductoID.addActionListener(this);
         bBuscarProductoNombre.addActionListener(this);
         bBuscarPrecio.addActionListener(this);
-        bBuscarTemporada.addActionListener(this);
         bBuscarTodo.addActionListener(this);
         bBuscarDept.addActionListener(this);
         bBuscarEstado.addActionListener(this);
@@ -106,8 +104,7 @@ private RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(CBdepartamento);
         panel1.add(new JLabel("Precio Venta"));
         panel1.add(tfPrecioVenta);
-        panel1.add(new JLabel("Temporada"));
-        panel1.add(tfTemporada);
+
         panel1.add(new JLabel("Estado"));
         panel1.add(CBestado);
         panel1.add(new JLabel("Estado de promocion"));
@@ -117,12 +114,10 @@ private RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(bBuscarProductoID);
         panel1.add(bBuscarProductoNombre);
         panel1.add(bBuscarPrecio);
-        panel1.add(bBuscarTemporada);
         panel1.add(bBuscarTodo);
         panel1.add(bBuscarDept);
         panel1.add(bBuscarEstado);
         panel1.add(bBuscarEstadoPromocion);
-        panel1.add(bSalir);
         panel2.add(panel1);
         panel2.add(new JScrollPane(taDatos));
         add(panel2);
@@ -174,40 +169,37 @@ fin="nada";
     {
         String datos, respuesta;
 
-        if(e.getSource() == CBdepartamento)
-        {
-        if(String.valueOf(CBdepartamento.getSelectedItem())=="Ropa")
-        {
-          bBuscarTemporada.setEnabled(true);
-          tfTemporada.setEnabled(true);
-        }
-        else
-        {
-        bBuscarTemporada.setEnabled(false);
-        tfTemporada.setEnabled(false);
-        }
-      }
+
 
         if(e.getSource() == bBuscarProductoID)
         {
             // 2. Checar los datos
             datos=tfidProducto.getText();
-            if(datos.equals(""))
+            if(datos.equals("")){
               respuesta = "INGRESA ID";
+                  JOptionPane.showMessageDialog( this , respuesta , "Error" , JOptionPane.INFORMATION_MESSAGE );
+          }
             else{
+
 
 
               respuesta = retailad.buscarID(datos);
               taDatos.setText(respuesta);
 
+              if(respuesta.equals("")){
+                JOptionPane.showMessageDialog( this , "No se encontro producto" , "Informe" , JOptionPane.INFORMATION_MESSAGE );
+              }
+
+
             }
-            JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
+
         }
         if(e.getSource() == bBuscarProductoNombre)
         {
           datos=tfNombre.getText();
           if(datos.equals(""))
-            respuesta = "INGRESA ID";
+            respuesta = "INGRESA Nombre";
+
           else{
 
 
@@ -215,28 +207,26 @@ fin="nada";
             taDatos.setText(respuesta);
 
           }
-          JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
-        }
-
-        if(e.getSource() == bBuscarTemporada)
-        {
-          //taDatos.setText("producto buscado por temporada");
 
         }
+
+
 
 if(e.getSource() == bBuscarPrecio)
         {
   //taDatos.setText("producto buscado por precio");
    datos=tfPrecioVenta.getText();
-    if(datos.equals(""))
-     respuesta = "INGRESA ID";
-    else{
+    if(datos.equals("")){
+     respuesta = "INGRESA PRECIO";
+          JOptionPane.showMessageDialog( this , respuesta , "Error" , JOptionPane.INFORMATION_MESSAGE );
+         }
+     else{
 
      respuesta = retailad.buscarPrecio(datos);
       taDatos.setText(respuesta);
 
      }
-     JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
+
         }
 
     if(e.getSource() == bBuscarTodo)

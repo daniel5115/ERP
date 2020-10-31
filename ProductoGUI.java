@@ -18,7 +18,7 @@ public class ProductoGUI extends JFrame implements ActionListener
 {
     private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfurl;
     private JComboBox   CBestado, CBestadoPromocion, CBdepartamento;
-    private JButton    bCapturarProducto, bBorrarProducto, bSalir,bBuscar;
+    private JButton    bCapturarProducto,bBuscar;
     private JPanel     panel1, panel2;
     private String fin,cg,es,eP,idP;
 
@@ -54,7 +54,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         tfurl=new JTextField();
 
         bCapturarProducto = new JButton("Capturar producto");
-        bBorrarProducto= new JButton("Borrar producto");
+
         bBuscar=new JButton("Buscar producto");
 
 
@@ -71,11 +71,14 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         CBdepartamento.addItem("Linea Blanca");
         CBdepartamento.addItem("Muebles");
         CBdepartamento.addItem("Electronica");
+
         CBestado= new JComboBox();
         CBestado.addItem("");
-        CBestado.addItem("Disponible");
-        CBestado.addItem("Agotado");
+        CBestado.addItem("Activo");
+        CBestado.addItem("Inactivo");
         CBestado.addItem("Descontinuado");
+        CBestado.addItem("Agotado");
+
         CBestadoPromocion= new JComboBox();
         CBestadoPromocion.addItem("");
         CBestadoPromocion.addItem("Con promocion");
@@ -83,7 +86,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
 
 
-        bSalir = new JButton("Exit");
+
         panel1 = new JPanel();
         panel2 = new JPanel();
         //taDatos = new JTextArea(10,30);
@@ -94,14 +97,14 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
         // Adicionar addActionListener a lo JButtons
         bCapturarProducto.addActionListener(this);
-        bBorrarProducto.addActionListener(this);
+
 ;
       //  bBuscarTemporada.addActionListener(this);
          bBuscar.addActionListener(this);
         CBdepartamento.addActionListener(this);
         CBestado.addActionListener(this);
         CBestadoPromocion.addActionListener(this);
-        bSalir.addActionListener(this);
+
 
 
 
@@ -135,13 +138,13 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
 
         panel1.add(bCapturarProducto);
-        panel1.add(bBorrarProducto);
+
         //panel1.add(bBuscarProducto);
         //panel1.add(bBuscarTemporada);
         panel1.add(bBuscar);
 
 
-        panel1.add(bSalir);
+
 
         panel2.add(panel1);
         //panel2.add(new JScrollPane(taDatos));
@@ -269,50 +272,56 @@ public void actionPerformed(ActionEvent e)
                System. out. println(fin+"Este depto");
             panel2.add(ropa.getPanel2(idP,fin));
             panel2.setVisible(true);
+            panel2.revalidate();
+            panel2.repaint();
               }
             if(fin=="2"){
               panel2.add(libro.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
             }
 
             if(fin=="3"){
               panel2.add(vinlic.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
 
             }
             if (fin=="4"){
               panel2.add(video.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
             }
             if(fin=="5"){
               panel2.add(lb.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
+
 
             }
             if(fin=="6"){
               panel2.add(muebles.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
+
 
             }
             if(fin=="7"){
               panel2.add(elec.getPanel2(idP,fin));
               panel2.setVisible(true);
+              panel2.revalidate();
+              panel2.repaint();
+
             }
         }
       }
 
-   if(e.getSource() == bBorrarProducto)
-        {
-          //taDatos.setText("borrar producto");
-        }
 
-
-
-
-        if(e.getSource() == bSalir)
-        {
-            System.exit(0);
-        }
     }
 
     public static void main(String args[])
