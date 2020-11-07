@@ -16,9 +16,9 @@ import javax.swing.*;
 import java.awt.*;
 public class ProductoGUI extends JFrame implements ActionListener
 {
-    private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfurl;
+    private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfporcent,tfurl;
     private JComboBox   CBestado, CBestadoPromocion, CBdepartamento;
-    private JButton    bCapturarProducto,bBuscar;
+    private JButton    bCapturarProducto,bBuscar,bModificar;
     private JPanel     panel1, panel2;
     private String fin,cg,es,eP,idP;
 
@@ -51,11 +51,14 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 				tfDistribuidor=new JTextField();
 				tfDescripcion=new JTextField();
 				tfPrecioPromocion=new JTextField("0");
+        tfporcent=new JTextField("0");
         tfurl=new JTextField();
 
         bCapturarProducto = new JButton("Capturar producto");
 
         bBuscar=new JButton("Buscar producto");
+
+        bModificar=new JButton("Modificar Producto");
 
 
 
@@ -101,6 +104,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 ;
       //  bBuscarTemporada.addActionListener(this);
          bBuscar.addActionListener(this);
+         bModificar.addActionListener(this);
         CBdepartamento.addActionListener(this);
         CBestado.addActionListener(this);
         CBestadoPromocion.addActionListener(this);
@@ -133,6 +137,8 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(CBestadoPromocion);
 				panel1.add(new JLabel("Precio Promocion"));
 				panel1.add(tfPrecioPromocion);
+        panel1.add(new JLabel("Porcentaje Promocion"));
+        panel1.add(tfporcent);
         panel1.add(new JLabel("URL"));
         panel1.add(tfurl);
 
@@ -142,7 +148,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         //panel1.add(bBuscarProducto);
         //panel1.add(bBuscarTemporada);
         panel1.add(bBuscar);
-
+       panel1.add(bModificar);
 
 
 
@@ -198,7 +204,7 @@ return this.panel2;
     private String obtenerDatos()
     {
       String datos;
-      String idProd, idDepto, nomb,pC,pV,dist,desc,edo,edoProm,pP,ul;
+      String idProd, idDepto, nomb,pC,pV,dist,desc,edo,edoProm,pP,porct,ul;
 
 
       idProd=tfidProducto.getText();
@@ -213,17 +219,18 @@ return this.panel2;
       edo=es;
       edoProm=eP;
       pP=tfPrecioPromocion.getText();
+      porct=tfporcent.getText();
       ul=tfurl.getText();
 
 
 
-      if(idProd.equals("") || idDepto.isEmpty() || nomb.isEmpty() ||pC.isEmpty() || pV.isEmpty() || dist.isEmpty() || desc.isEmpty() || edo.isEmpty() || edoProm.isEmpty()||pP.isEmpty()||ul.isEmpty())
+      if(idProd.equals("") || idDepto.isEmpty() || nomb.isEmpty() ||pC.isEmpty() || pV.isEmpty() || dist.isEmpty() || desc.isEmpty() || edo.isEmpty() || edoProm.isEmpty()||pP.isEmpty()||ul.isEmpty()||porct.isEmpty())
       {
         datos = "VACIO";
       }
       else
       {
-        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP+"_"+ul;
+        datos = idProd+"_"+idDepto+"_"+nomb+"_"+pC+"_"+pV+"_"+dist+"_"+desc+"_"+edo+"_"+edoProm+"_"+pP+"_"+porct+"_"+ul;
       }
 
       return datos;
