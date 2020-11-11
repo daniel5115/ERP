@@ -19,8 +19,8 @@ public class ProductoGUI extends JFrame implements ActionListener
 {
     private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfporcent,tfurl;
     private JComboBox   CBestado, CBestadoPromocion, CBdepartamento;
-    private JButton    bCapturarProducto,bBuscar,bModificar;
-    private JPanel     panel1, panel2;
+    private JButton    bCapturarProducto,bBuscar,bModificar,breset;
+    private JPanel    panel, panel1, panel2;
     private String fin,cg,es,eP,idP;
 
 //    private JTextArea  taDatos;
@@ -66,6 +66,8 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         bModificar=new JButton("Modificar Producto");
         bModificar.setEnabled(false);
 
+        breset=new JButton("Reset");
+
 
 
       //  bBuscarTemporada.setEnabled(false);
@@ -94,7 +96,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
 
 
-
+        panel=new JPanel();
         panel1 = new JPanel();
         panel2 = new JPanel();
         //taDatos = new JTextArea(10,30);
@@ -105,6 +107,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
         // Adicionar addActionListener a lo JButtons
         bCapturarProducto.addActionListener(this);
+        breset.addActionListener(this);
 
 ;
       //  bBuscarTemporada.addActionListener(this);
@@ -118,51 +121,53 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 
 
         // 2. Definir los Layouts de los JPanels
-        panel1.setLayout(new GridLayout(0,2));
-        panel2.setLayout(new FlowLayout());
+        panel.setLayout(new GridLayout(0,2));
+        panel1.setLayout(new FlowLayout());
 
         // 3. Colocar los objetos de los atributos en los JPanels correspondientes
-        panel1.add(new JLabel("ID producto"));
-        panel1.add(tfidProducto);
-        panel1.add(new JLabel("Departamento"));
-        panel1.add(CBdepartamento);
-        panel1.add(new JLabel("Nombre"));
-        panel1.add(tfNombre);
-        panel1.add(new JLabel("Precio Compra"));
-				panel1.add(tfPrecioCompra);
-				panel1.add(new JLabel("Precio Venta"));
-        panel1.add(tfPrecioVenta);
-				panel1.add(new JLabel("Distribuidor"));
-				panel1.add(tfDistribuidor);
-				panel1.add(new JLabel("Descripcion"));
-				panel1.add(tfDescripcion);
-				panel1.add(new JLabel("Estado"));
-        panel1.add(CBestado);
-        panel1.add(new JLabel("Estado de promocion"));
-        panel1.add(CBestadoPromocion);
+        panel.add(new JLabel("ID producto"));
+        panel.add(tfidProducto);
+        panel.add(new JLabel("Departamento"));
+        panel.add(CBdepartamento);
+        panel.add(new JLabel("Nombre"));
+        panel.add(tfNombre);
+        panel.add(new JLabel("Precio Compra"));
+				panel.add(tfPrecioCompra);
+				panel.add(new JLabel("Precio Venta"));
+        panel.add(tfPrecioVenta);
+				panel.add(new JLabel("Distribuidor"));
+				panel.add(tfDistribuidor);
+				panel.add(new JLabel("Descripcion"));
+				panel.add(tfDescripcion);
+				panel.add(new JLabel("Estado"));
+        panel.add(CBestado);
+        panel.add(new JLabel("Estado de promocion"));
+        panel.add(CBestadoPromocion);
 
-				panel1.add(new JLabel("Precio Promocion"));
-				panel1.add(tfPrecioPromocion);
-        panel1.add(new JLabel("Porcentaje Promocion"));
-        panel1.add(tfporcent);
-        panel1.add(new JLabel("URL"));
-        panel1.add(tfurl);
-
-
-        panel1.add(bCapturarProducto);
-
-        //panel1.add(bBuscarProducto);
-        //panel1.add(bBuscarTemporada);
-        panel1.add(bBuscar);
-       panel1.add(bModificar);
+				panel.add(new JLabel("Precio Promocion"));
+				panel.add(tfPrecioPromocion);
+        panel.add(new JLabel("Porcentaje Promocion"));
+        panel.add(tfporcent);
+        panel.add(new JLabel("URL"));
+        panel.add(tfurl);
 
 
+        panel.add(bCapturarProducto);
 
-        panel2.add(panel1);
+        //panel.add(bBuscarProducto);
+        //panel.add(bBuscarTemporada);
+        panel.add(bBuscar);
+       panel.add(bModificar);
+       panel.add(breset);
+
+
+
+        panel1.add(panel);
+        panel1.add(panel2);
         //panel2.add(new JScrollPane(taDatos));
 
         // 4. Adicionar el panel2 al JFrame y hacerlo visible
-        add(panel2);
+        add(panel1);
         setSize(550,670);
         setVisible(false);
 
@@ -170,7 +175,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
     }
     public JPanel getPanel2(){
 
-return this.panel2;
+return this.panel1;
 
 }
 private String tipDepto(String a){
@@ -204,7 +209,21 @@ fin1="nada";
   return fin1;
 
 }
+private void limpiar(){
+  tfidProducto.setText("");
+  tfNombre.setText("");
+  tfPrecioCompra.setText("");
+  tfPrecioVenta.setText("");
+  CBdepartamento.setSelectedIndex(-1);
+  tfDistribuidor.setText("");
+  tfDescripcion.setText("");
+  CBestado.setSelectedIndex(-1);
+  CBestadoPromocion.setSelectedIndex(-1);
+  tfPrecioPromocion.setText("");
+  tfporcent.setText("");
+  tfurl.setText("");
 
+}
 private void desplegar(String datos)
 {
   StringTokenizer st = new StringTokenizer(datos,"_");
@@ -326,7 +345,7 @@ public void actionPerformed(ActionEvent e)
             respuesta = retailad.capturar("Producto",datos);
             JOptionPane.showMessageDialog( this , respuesta , "Agregar a la base" , JOptionPane.INFORMATION_MESSAGE );
 
-            //panel.setVisible(false);
+
 
           //  panel = producto.getPanel2();
             //panel.setVisible(true);
@@ -417,6 +436,11 @@ public void actionPerformed(ActionEvent e)
       }
         datos = obtenerDatos();
       retailad.actualizar("Producto",datos);
+    }
+    if(e.getSource()== breset){
+      panel2.setVisible(false);
+      limpiar();
+
     }
 
 
