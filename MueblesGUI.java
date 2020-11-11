@@ -21,6 +21,7 @@ public class MueblesGUI  extends JFrame implements ActionListener
     private JButton    bAceptar;
     private JPanel     panel1, panel2;
         private String idP,idD;
+        private RetailADjdbc retailad=new RetailADjdbc();
 
     public MueblesGUI()
     {
@@ -75,7 +76,7 @@ public class MueblesGUI  extends JFrame implements ActionListener
         if(e.getSource() == bAceptar)
         {
             datos=obtenerDatos();
-            //respuesta=retailad.capturar("Mueble",datos);
+            respuesta=retailad.capturar("Muebles",datos);
         }
     }
     public static void main(String args[])

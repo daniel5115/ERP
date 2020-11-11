@@ -33,7 +33,7 @@ menuCatalogos    = new JMenu("Producto");
 menuCentros=new JMenu("Inventario");
 //menuReportes 	 = new JMenu("Reportes y Consultas");
 
-miProducto	 	 = new JMenuItem("Agregar Producto");
+miProducto	 	 = new JMenuItem("Agregar/Modificar Producto");
 miConProd 	 = new JMenuItem("Consultar Producto");
 miCentro= new JMenuItem("Agregar a Inventario");
 miConCentro=new JMenuItem("Consultar un Centro");

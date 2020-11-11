@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.StringTokenizer;
 public class ProductoGUI extends JFrame implements ActionListener
 {
     private JTextField tfidProducto, tfNombre, tfPrecioCompra,tfPrecioVenta,tfDistribuidor,tfDescripcion, tfPrecioPromocion,tfporcent,tfurl;
@@ -33,6 +34,7 @@ private MueblesGUI muebles=new MueblesGUI();
 private ElectronicaGUI elec=new ElectronicaGUI();
 
 private  RetailADjdbc retailad=new RetailADjdbc();
+
     //private BancoAD bancoad= new BancoAD();
     //private BancoADjdbc bancoad= new BancoADjdbc();
 
@@ -51,7 +53,10 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 				tfDistribuidor=new JTextField();
 				tfDescripcion=new JTextField();
 				tfPrecioPromocion=new JTextField("0");
+        //tfPrecioPromocion.setEnabled(false);
         tfporcent=new JTextField("0");
+        tfPrecioPromocion.setEditable(false);
+
         tfurl=new JTextField();
 
         bCapturarProducto = new JButton("Capturar producto");
@@ -59,7 +64,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         bBuscar=new JButton("Buscar producto");
 
         bModificar=new JButton("Modificar Producto");
-
+        bModificar.setEnabled(false);
 
 
 
@@ -135,6 +140,7 @@ private  RetailADjdbc retailad=new RetailADjdbc();
         panel1.add(CBestado);
         panel1.add(new JLabel("Estado de promocion"));
         panel1.add(CBestadoPromocion);
+
 				panel1.add(new JLabel("Precio Promocion"));
 				panel1.add(tfPrecioPromocion);
         panel1.add(new JLabel("Porcentaje Promocion"));
@@ -167,6 +173,56 @@ private  RetailADjdbc retailad=new RetailADjdbc();
 return this.panel2;
 
 }
+private String tipDepto(String a){
+String fin1;
+  switch(a){
+
+  case "1":
+     fin1= "Ropa";
+    break;
+  case "2":
+    fin1= "Libros";
+    break;
+  case "3":
+    fin1= "Vinos y Licores";
+    break;
+  case "4":
+    fin1= "Videojuegos";
+    break;
+  case "5":
+    fin1= "Linea Blanca";
+    break;
+  case "6":
+    fin1= "Muebles";
+    break;
+  case "7":
+  fin1= "Electronica";
+  break;
+ default:
+fin1="nada";
+  }
+  return fin1;
+
+}
+
+private void desplegar(String datos)
+{
+  StringTokenizer st = new StringTokenizer(datos,"_");
+
+  tfidProducto.setText(st.nextToken());
+CBdepartamento.setSelectedItem(tipDepto(st.nextToken()));
+tfNombre.setText(st.nextToken());
+  tfPrecioCompra.setText(st.nextToken());
+  tfPrecioVenta.setText(st.nextToken());
+  tfDistribuidor.setText(st.nextToken());
+  tfDescripcion.setText(st.nextToken());
+     CBestado.setSelectedItem(st.nextToken());
+     CBestadoPromocion.setSelectedItem(st.nextToken());
+     tfPrecioPromocion.setText(st.nextToken());
+     tfporcent.setText(st.nextToken());
+     tfurl.setText(st.nextToken());
+}
+
     private void obtenerCategoria(String a){
 
 
@@ -327,6 +383,41 @@ public void actionPerformed(ActionEvent e)
             }
         }
       }
+
+   if(e.getSource()== bBuscar){
+     datos=tfidProducto.getText();
+     datos=retailad.buscarID(datos);
+
+     if(datos.equals("NOT_FOUND")){
+
+     }
+
+			else
+			{
+
+				desplegar(datos);
+				tfidProducto.setEditable(false);
+        bModificar.setEnabled(true);
+
+			}
+   }
+   if(e.getSource()== bModificar){
+
+     float  precio,porcent, precioTotal;
+     datos=(String) CBestadoPromocion.getSelectedItem();
+
+     if(datos.equals("Con promocion")){
+      respuesta=tfporcent.getText();
+    porcent=100-Integer.parseInt(respuesta);
+    porcent=(porcent/100);
+    precio=Integer.parseInt(tfPrecioVenta.getText());
+
+    precioTotal=precio*porcent;
+    tfPrecioPromocion.setText(String.valueOf(precioTotal));
+      }
+        datos = obtenerDatos();
+      retailad.actualizar("Producto",datos);
+    }
 
 
     }
