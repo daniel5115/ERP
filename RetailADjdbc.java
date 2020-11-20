@@ -43,9 +43,9 @@ private CentroDistribucionDP centrodistdp;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance(); // Indicar el tipo de driver JDBC a utilizar
-		conexion = DriverManager.getConnection("jdbc:mysql://localhost/Retail?user=root&password=bodytalk"); // Conectar a la BD
+		//conexion = DriverManager.getConnection("jdbc:mysql://localhost/Retail?user=root&password=bodytalk"); // Conectar a la BD
 //conexion = DriverManager.getConnection("jdbc:mysql:34.94.218.60[:8000]/Tienda");
-//conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
+conexion = DriverManager.getConnection("jdbc:mysql://34.94.218.60/TIENDA","root","chuchito");
 
 			System.out.println("Conexion exitosa a la BD...");
 		}
@@ -149,8 +149,8 @@ public String actualizar(String tabla,String datos){
 		update = "UPDATE Inventario SET "+inventariodp.toStringSqlUpdate()+" WHERE idCD='"+inventariodp.getidCD()+"' AND idProducto='"+inventariodp.getidProducto()+"'";
 	}
 	if(tabla.equals("Producto")){
-	inventariodp = new InventarioDP(datos);
-		update = "UPDATE Producto SET "+inventariodp.toStringSqlUpdate()+" WHERE idProducto='"+inventariodp.getidProducto()+"'";
+	productodp = new ProductoDP(datos);
+		update = "UPDATE Producto SET "+productodp.toStringSqlUpdate()+" WHERE idProducto='"+productodp.getidProducto()+"'";
 	}
 
 
@@ -161,6 +161,7 @@ public String actualizar(String tabla,String datos){
 
 		// 2. Actualizar datos con Update
 		statement.executeUpdate(update);
+		statement.executeUpdate("COMMIT");
 
 		// 3. Cerrar la BD
 		statement.close();
@@ -616,6 +617,48 @@ if(tipo=="Buscar"){
 		else{
 			datos=inventariodp.toStringCantidad();
 		}
+	}
+
+
+    statement.close();
+
+    System.out.println(query);
+  }
+  catch(SQLException sqle)
+  {
+    datos = "Error 2: "+sqle;
+    System.out.println("Error: "+sqle);
+  }
+
+  return datos;
+}
+public String consultarCentroProducto(String a,String id){
+	String datos="";
+  String query;
+	  ResultSet tr;
+  query = "SELECT cantidad FROM Inventario WHERE idCD= '"+a+"'and idProducto='"+id+"'";
+	try
+  {
+
+    statement = conexion.createStatement();
+
+    // Ejecutar query
+    tr = statement.executeQuery(query);
+
+     inventariodp = new InventarioDP();
+
+    while(tr.next())
+    {
+
+
+			inventariodp.setidCD(Integer.parseInt(a));
+      inventariodp.setidProducto(Integer.parseInt(id));
+     inventariodp.setCantidad(tr.getInt(1));
+
+     datos = datos + inventariodp.getCantidad() + "\n";
+
+
+
 	}
 
 

@@ -433,13 +433,20 @@ public void actionPerformed(ActionEvent e)
 
     precioTotal=precio*porcent;
     tfPrecioPromocion.setText(String.valueOf(precioTotal));
+    cg=(String) CBdepartamento.getSelectedItem();
+    obtenerCategoria(cg);
+   es=(String)CBestado.getSelectedItem();
+    eP=(String) CBestadoPromocion.getSelectedItem();
+    datos = obtenerDatos();
+  respuesta=retailad.actualizar("Producto",datos);
       }
-        datos = obtenerDatos();
-      retailad.actualizar("Producto",datos);
+
+
     }
     if(e.getSource()== breset){
       panel2.setVisible(false);
       limpiar();
+      tfidProducto.setEnabled(true);
 
     }
 

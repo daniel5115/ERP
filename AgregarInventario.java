@@ -92,7 +92,7 @@ public String obtenerCentro(String a){
         fin= "3";
         break;
         default:
-        fin="Global";
+        fin="NADA";
       }
 return fin;
     }
@@ -113,26 +113,29 @@ return datos;
 }
 
 public void actionPerformed(ActionEvent e){
-  String datos,respuesta,id,depto;
+  String datos,respuesta,id,centro;
 
 if(e.getSource()==bBuscar){
-  depto= (String) CBCentroDistribucion.getSelectedItem();
-  depto= obtenerCentro(depto);
-  datos=obtenerDatos(depto);
+  centro= (String) CBCentroDistribucion.getSelectedItem();
+  centro= obtenerCentro(centro);
+  //centro=obtenerDatos(centro);
+  id=tfidProducto.getText();
+  datos=obtenerDatos(centro);
   if(datos.equals("VACIO")){
     respuesta="ALGUN CAMPO ESTA VACIO";
    }
    else{
-   respuesta=retailad.consultarCentro(depto,"Modificar");
+   respuesta=retailad.consultarCentroProducto(centro,id);
+   System.out.println(respuesta);
    tfCantidad.setText(respuesta);
    bIngresar.setEnabled(true);
     }
   }
 if(e.getSource()==bIngresar){
   // depto=obtenerCategoria(depto);
-  depto= (String) CBCentroDistribucion.getSelectedItem();
-  depto= obtenerCentro(depto);
-  datos=obtenerDatos(depto);
+  centro= (String) CBCentroDistribucion.getSelectedItem();
+  centro= obtenerCentro(centro);
+  datos=obtenerDatos(centro);
 
     if(datos.equals("VACIO") ||tfCantidad.getText().equals("")){
 respuesta="ALGUN CAMPO ESTA VACIO";
